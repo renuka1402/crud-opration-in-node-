@@ -1,0 +1,27 @@
+body {
+    background: #f7f8fc;
+}
+
+.page-title {
+    font-weight: 700;
+}
+
+.product-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.pagination-summary {
+    margin-bottom: 12px;
+    color: #4a5568;
+}
+
+.pagination-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}

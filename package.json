@@ -1,0 +1,20 @@
+{
+  "name": "product-crud",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.6.1",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "express-session": "^1.18.2",
+    "joi": "^18.1.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.1.0",
+    "multer": "^2.0.2"
+  }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="page-title">Product Management</h1>
+        <div>
+            <% if (user) { %>
+                <span class="me-3">Logged in as <strong><%= user.email %></strong></span>
+                <a href="/logout" class="btn btn-outline-secondary btn-sm">Logout</a>
+            <% } else { %>
+                <a href="/login" class="btn btn-primary btn-sm me-2">Login</a>
+                <a href="/register" class="btn btn-success btn-sm">Register</a>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <form class="row g-2" method="GET" action="/">
+            <div class="col-md-5">
+                <input type="text" name="search" value="<%= search %>" class="form-control" placeholder="Search products...">
+            </div>
+          
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary w-100">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <% if (user) { %>
+        <div class="card mb-5">
+            <div class="card-body">
+                <h4>Add New Product</h4>
+                <form action="/products/create" method="POST" enctype="multipart/form-data" class="row g-2">
+                    <div class="col-md-3">
+                        <input type="text" name="name" placeholder="Product Name" class="form-control" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="price" placeholder="Price" class="form-control" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="quantity" placeholder="Quantity" class="form-control" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" name="mfgDate" class="form-control" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="file" name="image" class="form-control">
+                    </div>
+                    <div class="col-md-1 d-grid">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="alert alert-info">Please <a href="/login">login</a> or <a href="/register">register</a> to add, edit, and delete products.</div>
+    <% } %>
+
+    <hr>
+
+    <h2>Product List</h2>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Manufactured</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(p => { %>
+                <tr>
+                    <td>
+                        <% if (p.imageUrl) { %>
+                            <img src="<%= p.imageUrl %>" class="product-thumb" alt="<%= p.name %>">
+                        <% } else { %>
+                            —
+                        <% } %>
+                    </td>
+                    <td><%= p.name %></td>
+                    <td>₹<%= p.price %></td>
+                    <td><%= p.quantity %></td>
+                    <td><%= new Date(p.mfgDate).toLocaleDateString() %></td>
+                    <td>
+                        <% if (user) { %>
+                            <a href="/product/edit/<%= p._id %>" class="btn btn-sm btn-warning me-1">Edit</a>
+                            <a href="/products/delete/<%= p._id %>" class="btn btn-sm btn-danger">Delete</a>
+                        <% } else { %>
+                            <span class="text-muted">Login to manage</span>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <div class="pagination-bar">
+        <% if (currentPage > 1) { %>
+            <a href="/?page=<%= currentPage - 1 %>&limit=<%= limit %>&search=<%= encodeURIComponent(search) %>" class="btn btn-outline-primary">Previous</a>
+        <% } else { %>
+            <button class="btn btn-outline-secondary" disabled>Previous</button>
+        <% } %>
+
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <a href="/?page=<%= i %>&limit=<%= limit %>&search=<%= encodeURIComponent(search) %>" class="btn <%= i === currentPage ? 'btn-primary' : 'btn-outline-primary' %>">
+                <%= i %>
+            </a>
+        <% } %>
+
+        <% if (currentPage < totalPages) { %>
+            <a href="/?page=<%= currentPage + 1 %>&limit=<%= limit %>&search=<%= encodeURIComponent(search) %>" class="btn btn-outline-primary">Next</a>
+        <% } else { %>
+            <button class="btn btn-outline-secondary" disabled>Next</button>
+        <% } %>
+    </div>
+</body>
+</html>
