@@ -1,15 +1,24 @@
+// const express = require('express');
+// const authController = require('../controller/authController');
+// const { validateRegister, validateLogin } = require('../utils/validation');
+// const router = express.Router();
+// router.get('/register', authController.showRegister);
+// router.post('/register', validateRegister, authController.registerUser);
+// router.get('/login', authController.showLogin);
+// router.post('/login', validateLogin, authController.loginUser);
+// router.get('/logout', authController.logoutUser);
+
+// module.exports = router;
+
 const express = require('express');
-const authController = require('../controller/authController');
-
-const router = express.Router();
-
-router.get('/register', authController.showRegister);
-router.post('/register', authController.registerUser);
-router.get('/login', authController.showLogin);
-router.post('/login', authController.loginUser);
-router.get('/logout', authController.logoutUser);
+const authController=require('../controller/authController')
+const router=express.Router();
+const {validateRegister,validateLogin}=require('../utils/validation');
 
 
-
-
-module.exports = router;
+router.get('/register',authController.showRegister)
+router.post('/register', validateRegister,authController.registerUser)
+router.get('/login',authController.showLogin)
+router.post('/login', validateLogin,authController.loginUser)
+router.get('/logout',authController.logoutUser)
+module.exports=router;

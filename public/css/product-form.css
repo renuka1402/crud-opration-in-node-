@@ -8,6 +8,7 @@
 body {
     background: #f4f4f4;
     padding: 20px;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
 }
 
 .form-box {
@@ -44,24 +45,14 @@ select {
 .buttons {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
 }
 
-button {
+.update-btn,
+.btn-cancel {
     flex: 1;
-    padding: 12px;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.save-btn {
-    background: #28a745;
-}
-
-.save-btn:hover {
-    background: #218838;
+    min-height: 44px;
 }
 
 .update-btn {
@@ -101,4 +92,14 @@ button {
 .current-img img {
     max-width: 150px;
     border-radius: 5px;
+}
+
+@media (max-width: 640px) {
+    body {
+        padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .form-box {
+        padding: 18px;
+    }
 }

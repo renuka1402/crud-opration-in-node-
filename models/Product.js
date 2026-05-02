@@ -5,11 +5,10 @@ const productSchema = new mongoose.Schema({
     price: { type: Number, required: true, min: 0 },
     quantity: { type: Number, required: true, min: 0 },
     mfgDate: { type: Date, required: true },
-    imageUrl: { type: String, default: null },
     isDeleted: { type: Boolean, default: false },
+    
     deletedAt: { type: Date, default: null }
 }, {
     timestamps: true
 });
-
 module.exports = mongoose.model('Product', productSchema);
